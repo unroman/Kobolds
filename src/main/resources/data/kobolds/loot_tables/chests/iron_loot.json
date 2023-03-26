@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "kobolds:kobold_iron_sword",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kobolds:kobold_iron_pickaxe",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kobolds:kobold_iron_axe",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kobolds:kobold_iron_hoe",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kobolds:kobold_iron_shovel",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

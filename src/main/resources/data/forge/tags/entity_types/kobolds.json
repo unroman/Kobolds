@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "kobolds:kobold",
+    "kobolds:kobold_child",
+    "kobolds:kobold_warrior",
+    "kobolds:kobold_enchanter",
+    "kobolds:kobold_engineer",
+    "kobolds:kobold_rascal",
+    "kobolds:kobold_pirate",
+    "kobolds:kobold_captain",
+    "kobolds:kobold_zombie",
+    "kobolds:kobold_zombie_drowned",
+    "kobolds:kobold_skeleton"
+  ]
+}
