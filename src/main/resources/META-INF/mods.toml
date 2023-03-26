@@ -1,0 +1,25 @@
+modLoader="javafml"
+loaderVersion="[43,)"
+license="MIT License"
+
+[[mods]]
+modId="kobolds"
+version="2.6.1"
+displayName="Kobolds"
+credits="Jusey1, Giodude1580, Burack, Lorian Ross"
+displayURL="https://discord.gg/s7QaYGUzZU"
+authors="Jusey1"
+description='''
+Tiny Lizards
+'''
+
+[[dependencies.kobolds]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.19.2]"
+    ordering="NONE"
+    side="BOTH"
+
+
+
+
