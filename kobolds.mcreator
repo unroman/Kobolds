@@ -1,0 +1,491 @@
+{
+  "mod_elements": [
+    {
+      "name": "Kobold",
+      "type": "livingentity",
+      "sortid": 1,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "kobold",
+      "metadata": {
+        "files": [
+          "src/main/java/net/salju/kobolds/client/renderer/KoboldRenderer.java",
+          "src/main/java/net/salju/kobolds/entity/KoboldEntity.java"
+        ]
+      }
+    },
+    {
+      "name": "KoboldWarrior",
+      "type": "livingentity",
+      "sortid": 2,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "kobold_warrior",
+      "metadata": {
+        "files": [
+          "src/main/java/net/salju/kobolds/entity/KoboldWarriorEntity.java",
+          "src/main/java/net/salju/kobolds/client/renderer/KoboldWarriorRenderer.java"
+        ]
+      }
+    },
+    {
+      "name": "KoboldEnchanter",
+      "type": "livingentity",
+      "sortid": 3,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "kobold_enchanter",
+      "metadata": {
+        "files": [
+          "src/main/java/net/salju/kobolds/client/renderer/KoboldEnchanterRenderer.java",
+          "src/main/java/net/salju/kobolds/entity/KoboldEnchanterEntity.java"
+        ]
+      }
+    },
+    {
+      "name": "KoboldChild",
+      "type": "livingentity",
+      "sortid": 7,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "kobold_child"
+    },
+    {
+      "name": "KoboldEngineer",
+      "type": "livingentity",
+      "sortid": 4,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "kobold_engineer",
+      "metadata": {
+        "files": [
+          "src/main/java/net/salju/kobolds/client/renderer/KoboldEngineerRenderer.java",
+          "src/main/java/net/salju/kobolds/entity/KoboldEngineerEntity.java"
+        ]
+      }
+    },
+    {
+      "name": "KoboldPirate",
+      "type": "livingentity",
+      "sortid": 5,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "kobold_pirate",
+      "metadata": {
+        "files": [
+          "src/main/java/net/salju/kobolds/client/renderer/KoboldPirateRenderer.java",
+          "src/main/java/net/salju/kobolds/entity/KoboldPirateEntity.java"
+        ]
+      }
+    },
+    {
+      "name": "KoboldCaptain",
+      "type": "livingentity",
+      "sortid": 6,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "kobold_captain",
+      "metadata": {
+        "files": [
+          "src/main/java/net/salju/kobolds/client/renderer/KoboldCaptainRenderer.java",
+          "src/main/java/net/salju/kobolds/entity/KoboldCaptainEntity.java"
+        ]
+      }
+    },
+    {
+      "name": "KoboldZombie",
+      "type": "livingentity",
+      "sortid": 8,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "kobold_zombie",
+      "metadata": {
+        "files": [
+          "src/main/java/net/salju/kobolds/entity/KoboldZombieEntity.java",
+          "src/main/java/net/salju/kobolds/client/renderer/KoboldZombieRenderer.java"
+        ]
+      }
+    },
+    {
+      "name": "KoboldZombieDrowned",
+      "type": "livingentity",
+      "sortid": 9,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "kobold_zombie_drowned",
+      "metadata": {
+        "files": [
+          "src/main/java/net/salju/kobolds/client/renderer/KoboldZombieDrownedRenderer.java",
+          "src/main/java/net/salju/kobolds/entity/KoboldZombieDrownedEntity.java"
+        ]
+      }
+    },
+    {
+      "name": "KoboldSkeleton",
+      "type": "livingentity",
+      "sortid": 10,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "kobold_skeleton",
+      "metadata": {
+        "files": [
+          "src/main/java/net/salju/kobolds/client/renderer/KoboldSkeletonRenderer.java",
+          "src/main/java/net/salju/kobolds/entity/KoboldSkeletonEntity.java"
+        ]
+      }
+    },
+    {
+      "name": "KoboldRascal",
+      "type": "livingentity",
+      "sortid": 22,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "kobold_rascal"
+    },
+    {
+      "name": "KoboldsEvents",
+      "type": "procedure",
+      "sortid": 27,
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "kobolds_events",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      }
+    }
+  ],
+  "variable_elements": [],
+  "sound_elements": [
+    {
+      "name": "kobold_trade",
+      "files": [
+        "trade_1",
+        "trade_2",
+        "trade_3"
+      ],
+      "category": "hostile",
+      "subtitle": "Good, deal!"
+    },
+    {
+      "name": "kobold_purr",
+      "files": [
+        "kobold_purr_1",
+        "kobold_purr_2",
+        "kobold_purr_3",
+        "kobold_purr_4",
+        "kobold_purr_5",
+        "kobold_purr_6"
+      ],
+      "category": "hostile",
+      "subtitle": "Churr!"
+    },
+    {
+      "name": "kobold_death",
+      "files": [
+        "kobold_death_1",
+        "kobold_death_2",
+        "kobold_death_3"
+      ],
+      "category": "hostile",
+      "subtitle": "I died!"
+    },
+    {
+      "name": "kobold_hurt",
+      "files": [
+        "kobold_hit_1",
+        "kobold_hit_2",
+        "kobold_hit_3",
+        "kobold_hit_4",
+        "kobold_hit_5"
+      ],
+      "category": "hostile",
+      "subtitle": "Ow!"
+    },
+    {
+      "name": "kobold_idle",
+      "files": [
+        "kobold_idle_1",
+        "kobold_idle_2",
+        "kobold_idle_3",
+        "kobold_idle_4",
+        "kobold_idle_5",
+        "kobold_idle_6"
+      ],
+      "category": "hostile",
+      "subtitle": "Kobold Here!"
+    },
+    {
+      "name": "music_kobblestone",
+      "files": [
+        "kobblestone"
+      ],
+      "category": "record",
+      "subtitle": ""
+    }
+  ],
+  "language_map": {
+    "ru_ru": {
+      "item.kobolds.kobold_zombie_spawn_egg": "Яйцо призыва зомбольда",
+      "subtitles.kobold_hurt": "Ай!",
+      "subtitles.music_kobblestone": "Слишком громкая музыка!",
+      "entity.kobolds.kobold_zombie_drowned": "Зомбольд утопленник",
+      "item.kobolds.kobold_potion_water": "Кобольдское зелье подводного дыхания",
+      "entity.kobolds.kobold_warrior": "Кобольд войн",
+      "item.kobolds.banner_pattern_kobold": "Узор флага",
+      "block.minecraft.banner.kobolds.kobold.brown": "Коричневый кобольд",
+      "entity.kobolds.kobold": "Кобольд",
+      "item.kobolds.kobold_iron_axe": "Кобольдский железный топор",
+      "desc.kobolds.potion_combat": "Прыгучесть (2:15) и Скорость (2:15)",
+      "desc.kobolds.potion_stealth": "Невидимость (2:15) и Ночьное зрение (2:15)",
+      "item.kobolds.banner_pattern_kobold.desc": "Кобольд",
+      "entity.kobolds.kobold_enchanter": "Кобольд заклинатель",
+      "block.kobolds.kobold_skull": "Череп кобольда",
+      "block.minecraft.banner.kobolds.kobold.cyan": "Бирюзовый кобольд",
+      "enchantment.kobolds.prospector": "Старатель",
+      "block.minecraft.banner.kobolds.kobold.yellow": "Желтый кобольд",
+      "item.kobolds.kobold_potion_levitation": "Кобольдское зелье левитации",
+      "block.minecraft.banner.kobolds.kobold.light_gray": "Светло-серый Кобольд",
+      "entity.kobolds.kobold_pirate": "Кобольд пират",
+      "item.kobolds.kobold_iron_pickaxe": "Кобольдская железная кирка",
+      "block.minecraft.banner.kobolds.kobold.light_blue": "Голубой кобольд",
+      "desc.kobolds.potion_leap": "Прыгучесть (1:00) и Плавное падение (1:00)",
+      "subtitles.kobold_purr": "Ура!",
+      "item.kobolds.kobold_potion_combat": "Кобольдское боевое зелье",
+      "item.kobolds.kobold_infinity_potion": "Кобольдское зелье исцеления",
+      "item.kobolds.kobold_potion_fire": "Кобольдское зелье огнестойкости",
+      "item.kobolds.music_disc_kobblestone.desc": "Lorian Ross - Kobblestone",
+      "block.minecraft.banner.kobolds.kobold.orange": "Оранжевый кобольд",
+      "enchantment.kobolds.prospector.desc": "У монстров будет небольшой шанс уронить изумруды при смерти.",
+      "item.kobolds.kobold_warrior_spawn_egg": "Яйцо призыва кобольда война",
+      "desc.kobolds.potion_fire": "Огнестойкость (2:15)",
+      "item.kobolds.kobold_pirate_spawn_egg": "Яйцо призыва кобольда пирата",
+      "item.kobolds.kobold_potion_leaping": "Кобольдское зелье прыгучести",
+      "desc.kobolds.potion_float": "Левитация (0:12)",
+      "block.minecraft.banner.kobolds.kobold.magenta": "Пурпурный кобольд",
+      "item.kobolds.kobold_potion_mining": "Кобольдское зелье спешки",
+      "item.kobolds.kobold_iron_hoe": "Кобольдская железная мотыга",
+      "block.minecraft.banner.kobolds.kobold.green": "Зеленый инженер",
+      "block.minecraft.banner.kobolds.kobold.white": "Белый кобольд",
+      "entity.kobolds.kobold_engineer": "Кобольд инженер",
+      "entity.kobolds.kobold_rascal": "Кобольд разбойник",
+      "subtitles.kobold_idle": "Кобольд тут!",
+      "entity.kobolds.kobold_skeleton": "Кобольд-скелет",
+      "item.kobolds.kobold_spawn_egg": "Яйцо призыва кобольда",
+      "item.kobolds.kobold_template": "Шаблон кобольдской отделки брони",
+      "item.kobolds.music_disc_kobblestone": "Пластинка",
+      "block.minecraft.banner.kobolds.kobold.pink": "Розовый кобольд",
+      "block.minecraft.banner.kobolds.kobold.black": "Черный Кобольд",
+      "subtitles.kobold_trade": "По рукам!",
+      "item.kobolds.kobold_potion_stealth": "Кобольдское зелье скрытности",
+      "block.minecraft.banner.kobolds.kobold.gray": "Серый кобольд",
+      "block.minecraft.banner.kobolds.kobold.purple": "Пурпурныйe кобольд",
+      "item.kobolds.kobold_enchanter_spawn_egg": "Яйцо призыва кобольда заклинателя",
+      "entity.kobolds.kobold_child": "Кобольд ребенок",
+      "desc.kobolds.potion_haste": "Спешка (2:00)",
+      "advancements.kobold_pet_advancement.descr": "Подружись с кобольдом и отведай мягкого тако.",
+      "item.kobolds.kobold_iron_shovel": "Кобольдская железная лопата",
+      "item.kobolds.kobold_iron_sword": "Кобольдский железный меч",
+      "advancements.kobold_pet_advancement.title": "Ты\u0027теперь мой друг!",
+      "desc.kobolds.potion_water": "Водное дыхание (2:15)",
+      "item.kobolds.kobold_zombie_drowned_spawn_egg": "Яйцо призыва зомбольда утопленника",
+      "item.kobolds.kobold_engineer_spawn_egg": "Яйцо призыва кобольда инженера",
+      "item.kobolds.kobold_skeleton_spawn_egg": "Яйцо призыва кобольда-скелета",
+      "desc.kobolds.potion_healing": "Мгновенное здоровье и регенерация (0:12)",
+      "block.minecraft.banner.kobolds.kobold.lime": "Лаймовый кобольд",
+      "block.minecraft.banner.kobolds.kobold.blue": "Синий кобольд",
+      "trim_pattern.kobolds.kobold": "Кобольд",
+      "subtitles.kobold_death": "Я умер!",
+      "entity.kobolds.kobold_zombie": "Зомбольд",
+      "block.minecraft.banner.kobolds.kobold.red": "Красный кобольд",
+      "entity.kobolds.kobold_captain": "Кобольд капитан",
+      "itemGroup.kobolds_tab": "Кобольды",
+      "item.kobolds.kobold_potion_health": "Кобольдское зелье исцеления",
+      "item.kobolds.kobold_captain_spawn_egg": "Яйцо призыва кобольда капитана"
+    },
+    "en_us": {
+      "item.kobolds.kobold_zombie_spawn_egg": "Zombold Spawn Egg",
+      "subtitles.kobold_hurt": "Ow!",
+      "subtitles.music_kobblestone": "Loud Music!",
+      "entity.kobolds.kobold_zombie_drowned": "Drowned Zombold",
+      "item.kobolds.kobold_potion_water": "Kobold Potion of Water Breathing",
+      "entity.kobolds.kobold_warrior": "Kobold Warrior",
+      "item.kobolds.banner_pattern_kobold": "Banner Pattern",
+      "block.minecraft.banner.kobolds.kobold.brown": "Brown Kobold",
+      "entity.kobolds.kobold": "Kobold",
+      "item.kobolds.kobold_iron_axe": "Kobold Iron Axe",
+      "desc.kobolds.potion_combat": "Strength (2:15) \u0026 Speed (2:15)",
+      "desc.kobolds.potion_stealth": "Invisibility (2:15) \u0026 Night Vision (2:15)",
+      "item.kobolds.banner_pattern_kobold.desc": "Kobold",
+      "entity.kobolds.kobold_enchanter": "Kobold Enchanter",
+      "block.kobolds.kobold_skull": "Kobold Skull",
+      "block.minecraft.banner.kobolds.kobold.cyan": "Cyan Kobold",
+      "enchantment.kobolds.prospector": "Prospector",
+      "block.minecraft.banner.kobolds.kobold.yellow": "Yellow Kobold",
+      "item.kobolds.kobold_potion_levitation": "Kobold Potion of Levitation",
+      "block.minecraft.banner.kobolds.kobold.light_gray": "Light Gray Kobold",
+      "entity.kobolds.kobold_pirate": "Kobold Pirate",
+      "item.kobolds.kobold_iron_pickaxe": "Kobold Iron Pickaxe",
+      "block.minecraft.banner.kobolds.kobold.light_blue": "Light Blue Kobold",
+      "desc.kobolds.potion_leap": "Jump Boost (1:00) \u0026 Slow Falling (1:00)",
+      "subtitles.kobold_purr": "Yay!",
+      "item.kobolds.kobold_potion_combat": "Kobold Potion of Combat",
+      "item.kobolds.kobold_infinity_potion": "Kobold Potion of Healing",
+      "item.kobolds.kobold_potion_fire": "Kobold Potion of Fire Resistance",
+      "item.kobolds.music_disc_kobblestone.desc": "Lorian Ross - Kobblestone",
+      "block.minecraft.banner.kobolds.kobold.orange": "Orange Kobold",
+      "enchantment.kobolds.prospector.desc": "Monsters will have a small chance of dropping emeralds.",
+      "item.kobolds.kobold_warrior_spawn_egg": "Kobold Warrior Spawn Egg",
+      "desc.kobolds.potion_fire": "Fire Resistance (2:15)",
+      "item.kobolds.kobold_pirate_spawn_egg": "Kobold Pirate Spawn Egg",
+      "item.kobolds.kobold_potion_leaping": "Kobold Potion of Leaping",
+      "desc.kobolds.potion_float": "Levitation (0:12)",
+      "block.minecraft.banner.kobolds.kobold.magenta": "Magenta Kobold",
+      "item.kobolds.kobold_potion_mining": "Kobold Potion of Mining",
+      "item.kobolds.kobold_iron_hoe": "Kobold Iron Hoe",
+      "block.minecraft.banner.kobolds.kobold.green": "Green Kobold",
+      "block.minecraft.banner.kobolds.kobold.white": "White Kobold",
+      "entity.kobolds.kobold_engineer": "Kobold Engineer",
+      "entity.kobolds.kobold_rascal": "Kobold Rascal",
+      "subtitles.kobold_idle": "Kobold is here!",
+      "entity.kobolds.kobold_skeleton": "Skelebold",
+      "item.kobolds.kobold_spawn_egg": "Kobold Spawn Egg",
+      "item.kobolds.kobold_template": "Kobold Armor Trim Template",
+      "item.kobolds.music_disc_kobblestone": "Music Disc",
+      "block.minecraft.banner.kobolds.kobold.pink": "Pink Kobold",
+      "block.minecraft.banner.kobolds.kobold.black": "Black Kobold",
+      "subtitles.kobold_trade": "Dealio!",
+      "item.kobolds.kobold_potion_stealth": "Kobold Potion of Stealth",
+      "block.minecraft.banner.kobolds.kobold.gray": "Gray Kobold",
+      "block.minecraft.banner.kobolds.kobold.purple": "Purple Kobold",
+      "item.kobolds.kobold_enchanter_spawn_egg": "Kobold Enchanter Spawn Egg",
+      "entity.kobolds.kobold_child": "Kobold Child",
+      "desc.kobolds.potion_haste": "Haste (2:00)",
+      "advancements.kobold_pet_advancement.descr": "Befriend a kobold and have soft tacos later.",
+      "item.kobolds.kobold_iron_shovel": "Kobold Iron Shovel",
+      "item.kobolds.kobold_iron_sword": "Kobold Iron Sword",
+      "advancements.kobold_pet_advancement.title": "You\u0027re My Friend Now!",
+      "desc.kobolds.potion_water": "Water Breathing (2:15)",
+      "item.kobolds.kobold_zombie_drowned_spawn_egg": "Drowned Zombold Spawn Egg",
+      "item.kobolds.kobold_engineer_spawn_egg": "Kobold Engineer Spawn Egg",
+      "item.kobolds.kobold_skeleton_spawn_egg": "Skelebold Spawn Egg",
+      "desc.kobolds.potion_healing": "Instant Health \u0026 Regeneration (0:12)",
+      "block.minecraft.banner.kobolds.kobold.lime": "Lime Kobold",
+      "block.minecraft.banner.kobolds.kobold.blue": "Blue Kobold",
+      "trim_pattern.kobolds.kobold": "Kobold",
+      "subtitles.kobold_death": "I am dead!",
+      "entity.kobolds.kobold_zombie": "Zombold",
+      "block.minecraft.banner.kobolds.kobold.red": "Red Kobold",
+      "entity.kobolds.kobold_captain": "Kobold Captain",
+      "itemGroup.kobolds_tab": "Kobolds",
+      "item.kobolds.kobold_potion_health": "Kobold Potion of Healing",
+      "item.kobolds.kobold_captain_spawn_egg": "Kobold Captain Spawn Egg"
+    },
+    "zh_cn": {
+      "item.kobolds.kobold_zombie_spawn_egg": "僵尸狗头人刷怪蛋",
+      "subtitles.kobold_hurt": "狗头人：受伤",
+      "subtitles.music_kobblestone": "吵闹的音乐",
+      "entity.kobolds.kobold_zombie_drowned": "溺尸狗头人",
+      "entity.kobolds.kobold_warrior": "狗头人的水肺药水",
+      "item.kobolds.kobold_potion_water": "狗头人战士",
+      "item.kobolds.banner_pattern_kobold": "旗帜图案",
+      "block.minecraft.banner.kobolds.kobold.brown": "棕色狗头人盾徽",
+      "entity.kobolds.kobold": "狗头人",
+      "item.kobolds.kobold_iron_axe": "狗头人铁斧",
+      "desc.kobolds.potion_combat": "力量 (二:十五) 和速度 (二:十五)",
+      "desc.kobolds.potion_stealth": "隐形 (二:十五) 和夜视 (二:十五)",
+      "item.kobolds.banner_pattern_kobold.desc": "狗头人盾徽",
+      "entity.kobolds.kobold_enchanter": "狗头人头颅",
+      "block.kobolds.kobold_skull": "狗头人附魔师",
+      "block.minecraft.banner.kobolds.kobold.cyan": "青色狗头人盾徽",
+      "enchantment.kobolds.prospector": "探矿",
+      "block.minecraft.banner.kobolds.kobold.yellow": "黄色狗头人盾徽",
+      "item.kobolds.kobold_potion_levitation": "狗头人的失重药水",
+      "block.minecraft.banner.kobolds.kobold.light_gray": "淡灰色狗头人盾徽",
+      "entity.kobolds.kobold_pirate": "狗头人海盗",
+      "item.kobolds.kobold_iron_pickaxe": "狗头人铁镐",
+      "block.minecraft.banner.kobolds.kobold.light_blue": "淡蓝色狗头人盾徽",
+      "desc.kobolds.potion_leap": "跳跃提升 (一:〇) 和缓降 (一:〇)",
+      "subtitles.kobold_purr": "狗头人：咕噜咕噜",
+      "item.kobolds.kobold_potion_combat": "狗头人的战斗药水",
+      "item.kobolds.kobold_infinity_potion": "狗头人的治疗药水",
+      "item.kobolds.kobold_potion_fire": "狗头人的抗性药水",
+      "item.kobolds.music_disc_kobblestone.desc": "Lorian Ross - Kobblestone",
+      "block.minecraft.banner.kobolds.kobold.orange": "橙色狗头人盾徽",
+      "enchantment.kobolds.prospector.desc": "怪物有小概率掉落绿宝石",
+      "item.kobolds.kobold_warrior_spawn_egg": "狗头人战士刷怪蛋",
+      "desc.kobolds.potion_fire": "耐火性 (二:十五)",
+      "item.kobolds.kobold_pirate_spawn_egg": "狗头人海盗刷怪蛋",
+      "item.kobolds.kobold_potion_leaping": "狗头人的跳跃药水",
+      "desc.kobolds.potion_float": "悬浮 (〇:十二)",
+      "block.minecraft.banner.kobolds.kobold.magenta": "品红色狗头人盾徽",
+      "item.kobolds.kobold_potion_mining": "狗头人的采矿药水",
+      "item.kobolds.kobold_iron_hoe": "狗头人铁锄",
+      "block.minecraft.banner.kobolds.kobold.green": "绿色狗头人盾徽",
+      "block.minecraft.banner.kobolds.kobold.white": "白色狗头人盾徽",
+      "entity.kobolds.kobold_engineer": "狗头人工程师",
+      "entity.kobolds.kobold_rascal": "狗头人恶棍",
+      "subtitles.kobold_idle": "狗头人：嘟囔",
+      "entity.kobolds.kobold_skeleton": "骷髅狗头人",
+      "item.kobolds.kobold_spawn_egg": "狗头人刷怪蛋",
+      "item.kobolds.kobold_template": "狗头人盔甲纹饰锻造模板",
+      "item.kobolds.music_disc_kobblestone": "音乐唱片",
+      "block.minecraft.banner.kobolds.kobold.pink": "粉色狗头人盾徽",
+      "block.minecraft.banner.kobolds.kobold.black": "黑色哥布林盾徽",
+      "subtitles.kobold_trade": "狗头人：成交！",
+      "item.kobolds.kobold_potion_stealth": "狗头人的隐蔽药水",
+      "block.minecraft.banner.kobolds.kobold.gray": "灰色狗头人盾徽",
+      "block.minecraft.banner.kobolds.kobold.purple": "紫色狗头人盾徽",
+      "item.kobolds.kobold_enchanter_spawn_egg": "哥布林附魔师刷怪蛋",
+      "entity.kobolds.kobold_child": "幼年哥布林",
+      "desc.kobolds.potion_haste": "加速 (二:〇)",
+      "advancements.kobold_pet_advancement.descr": "和狗头人交朋友（摸摸它们的头！）",
+      "item.kobolds.kobold_iron_shovel": "狗头人铁锹",
+      "item.kobolds.kobold_iron_sword": "狗头人铁剑",
+      "advancements.kobold_pet_advancement.title": "你是我的好朋友！",
+      "desc.kobolds.potion_water": "水中呼吸 (二:十五)",
+      "item.kobolds.kobold_zombie_drowned_spawn_egg": "溺尸狗头人刷怪蛋",
+      "item.kobolds.kobold_engineer_spawn_egg": "狗头人工程师刷怪蛋",
+      "item.kobolds.kobold_skeleton_spawn_egg": "骷髅狗头人刷怪蛋",
+      "desc.kobolds.potion_healing": "即时健康与再生 (〇:十二)",
+      "block.minecraft.banner.kobolds.kobold.lime": "黄绿色狗头人盾徽",
+      "block.minecraft.banner.kobolds.kobold.blue": "蓝色狗头人盾徽",
+      "trim_pattern.kobolds.kobold": "狗头人盔甲纹饰",
+      "subtitles.kobold_death": "狗头人：死亡",
+      "entity.kobolds.kobold_zombie": "僵尸狗头人",
+      "block.minecraft.banner.kobolds.kobold.red": "红色狗头人盾徽",
+      "entity.kobolds.kobold_captain": "狗头人船长",
+      "itemGroup.kobolds_tab": "狗头人！",
+      "item.kobolds.kobold_potion_health": "狗头人的治疗药水",
+      "item.kobolds.kobold_captain_spawn_egg": "狗头人船长刷怪蛋"
+    }
+  },
+  "foldersRoot": {
+    "name": "~",
+    "children": []
+  },
+  "workspaceSettings": {
+    "modid": "kobolds",
+    "modName": "Kobolds",
+    "version": "2.6.1",
+    "description": "Tiny Lizards",
+    "author": "Jusey1",
+    "websiteURL": "https://discord.gg/s7QaYGUzZU",
+    "license": "MIT License",
+    "disableForgeVersionCheck": true,
+    "serverSideOnly": false,
+    "requiredMods": [],
+    "dependencies": [],
+    "dependants": [],
+    "mcreatorDependencies": [],
+    "currentGenerator": "forge-1.19.2",
+    "credits": "Jusey1, Giodude1580, Burack, Lorian Ross",
+    "modElementsPackage": "net.salju.kobolds",
+    "lockBaseModFiles": true
+  },
+  "mcreatorVersion": 202300110219
+}
