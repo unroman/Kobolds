@@ -25,7 +25,7 @@ public class KoboldZombieDrownedRenderer extends MobRenderer<KoboldZombieDrowned
 				return RenderType.eyes(new ResourceLocation("kobolds:textures/entities/kobold_drowned_glow.png"));
 			}
 		});
-		this.addLayer(new HumanoidArmorLayer(this, new KoboldArmorModel(context.bakeLayer(KoboldArmorModel.KOBOLD_ARMOR_INNER_MODEL)), new KoboldArmorModel(context.bakeLayer(KoboldArmorModel.KOBOLD_ARMOR_OUTER_MODEL))));
+		this.addLayer(new HumanoidArmorLayer(this, new KoboldArmorModel(context.bakeLayer(KoboldArmorModel.KOBOLD_ARMOR_INNER_MODEL)), new KoboldArmorModel(context.bakeLayer(KoboldArmorModel.KOBOLD_ARMOR_OUTER_MODEL)), context.getModelManager()));
 	}
 
 	@Override

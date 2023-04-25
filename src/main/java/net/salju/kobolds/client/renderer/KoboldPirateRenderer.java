@@ -25,7 +25,7 @@ public class KoboldPirateRenderer extends MobRenderer<KoboldPirateEntity, Kobold
 				return RenderType.eyes(new ResourceLocation("kobolds:textures/entities/kobold_pirate_eye.png"));
 			}
 		});
-		this.addLayer(new HumanoidArmorLayer(this, new KoboldArmorModel(context.bakeLayer(KoboldArmorModel.KOBOLD_ARMOR_INNER_MODEL)), new KoboldArmorModel(context.bakeLayer(KoboldArmorModel.KOBOLD_ARMOR_OUTER_MODEL))));
+		this.addLayer(new HumanoidArmorLayer(this, new KoboldArmorModel(context.bakeLayer(KoboldArmorModel.KOBOLD_ARMOR_INNER_MODEL)), new KoboldArmorModel(context.bakeLayer(KoboldArmorModel.KOBOLD_ARMOR_OUTER_MODEL)), context.getModelManager()));
 	}
 
 	@Override

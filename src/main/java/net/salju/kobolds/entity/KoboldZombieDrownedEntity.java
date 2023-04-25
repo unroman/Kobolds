@@ -36,7 +36,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.core.BlockPos;
 
 public class KoboldZombieDrownedEntity extends Drowned {
@@ -106,7 +106,7 @@ public class KoboldZombieDrownedEntity extends Drowned {
 					ItemStack weapon = this.getMainHandItem();
 					ItemStack off = this.getOffhandItem();
 					if (world instanceof ServerLevel lvl) {
-						if (world.getBiome(new BlockPos(x, y, z)).is(TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("minecraft:is_jungle")))) {
+						if (world.getBiome(BlockPos.containing(x, y, z)).is(TagKey.create(Registries.BIOME, new ResourceLocation("minecraft:is_jungle")))) {
 							if (weapon.getItem() instanceof SwordItem && weapon.isEnchanted()) {
 								KoboldCaptainEntity capty = this.convertTo(KoboldsModEntities.KOBOLD_CAPTAIN.get(), true);
 								ForgeEventFactory.onLivingConvert(this, capty);
@@ -114,7 +114,7 @@ public class KoboldZombieDrownedEntity extends Drowned {
 								KoboldPirateEntity pirate = this.convertTo(KoboldsModEntities.KOBOLD_PIRATE.get(), true);
 								ForgeEventFactory.onLivingConvert(this, pirate);
 							}
-						} else if (world.getBiome(new BlockPos(x, y, z)).is(TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("minecraft:is_mountain"))) && weapon.getItem() == Items.CROSSBOW && off == (ItemStack.EMPTY)) {
+						} else if (world.getBiome(BlockPos.containing(x, y, z)).is(TagKey.create(Registries.BIOME, new ResourceLocation("minecraft:is_mountain"))) && weapon.getItem() == Items.CROSSBOW && off == (ItemStack.EMPTY)) {
 							KoboldEngineerEntity engi = this.convertTo(KoboldsModEntities.KOBOLD_ENGINEER.get(), true);
 							ForgeEventFactory.onLivingConvert(this, engi);
 						} else if (off.getItem() instanceof ShieldItem) {
@@ -173,4 +173,4 @@ public class KoboldZombieDrownedEntity extends Drowned {
 		builder = builder.add(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
 		return builder;
 	}
-}
+}

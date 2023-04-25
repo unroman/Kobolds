@@ -21,7 +21,6 @@ public class KoboldsMod {
 
 	public KoboldsMod() {
 		MinecraftForge.EVENT_BUS.register(this);
-		KoboldsTabs.load();
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 		KoboldsModSounds.REGISTRY.register(bus);
 		KoboldsBlocks.REGISTRY.register(bus);

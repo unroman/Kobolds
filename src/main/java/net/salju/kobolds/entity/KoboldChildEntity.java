@@ -21,7 +21,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.core.BlockPos;
 
 public class KoboldChildEntity extends AbstractKoboldEntity {
@@ -65,7 +65,7 @@ public class KoboldChildEntity extends AbstractKoboldEntity {
 			} else if (this.getPersistentData().getDouble("TimerGrow") >= 24000) {
 				this.discard();
 				if (world instanceof ServerLevel lvl) {
-					if (world.getBiome(new BlockPos(x, y, z)).is(TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("minecraft:is_jungle")))) {
+					if (world.getBiome(BlockPos.containing(x, y, z)).is(TagKey.create(Registries.BIOME, new ResourceLocation("minecraft:is_jungle")))) {
 						if (Math.random() < 0.06) {
 							Mob kobold = new KoboldCaptainEntity(KoboldsModEntities.KOBOLD_CAPTAIN.get(), lvl);
 							kobold.moveTo(x, y, z, world.getRandom().nextFloat() * 360F, 0);
@@ -112,4 +112,4 @@ public class KoboldChildEntity extends AbstractKoboldEntity {
 		}
 		return InteractionResult.FAIL;
 	}
-}
+}

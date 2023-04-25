@@ -15,10 +15,10 @@ import net.minecraft.resources.ResourceLocation;
 
 public class KoboldsModSounds {
 	public static final DeferredRegister<SoundEvent> REGISTRY = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, KoboldsMod.MODID);
-	public static final RegistryObject<SoundEvent> KOBOLD_TRADE = REGISTRY.register("kobold_trade", () -> new SoundEvent(new ResourceLocation("kobolds", "kobold_trade")));
-	public static final RegistryObject<SoundEvent> KOBOLD_PURR = REGISTRY.register("kobold_purr", () -> new SoundEvent(new ResourceLocation("kobolds", "kobold_purr")));
-	public static final RegistryObject<SoundEvent> KOBOLD_DEATH = REGISTRY.register("kobold_death", () -> new SoundEvent(new ResourceLocation("kobolds", "kobold_death")));
-	public static final RegistryObject<SoundEvent> KOBOLD_HURT = REGISTRY.register("kobold_hurt", () -> new SoundEvent(new ResourceLocation("kobolds", "kobold_hurt")));
-	public static final RegistryObject<SoundEvent> KOBOLD_IDLE = REGISTRY.register("kobold_idle", () -> new SoundEvent(new ResourceLocation("kobolds", "kobold_idle")));
-	public static final RegistryObject<SoundEvent> MUSIC_KOBBLESTONE = REGISTRY.register("music_kobblestone", () -> new SoundEvent(new ResourceLocation("kobolds", "music_kobblestone")));
+	public static final RegistryObject<SoundEvent> KOBOLD_TRADE = REGISTRY.register("kobold_trade", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("kobolds", "kobold_trade")));
+	public static final RegistryObject<SoundEvent> KOBOLD_PURR = REGISTRY.register("kobold_purr", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("kobolds", "kobold_purr")));
+	public static final RegistryObject<SoundEvent> KOBOLD_DEATH = REGISTRY.register("kobold_death", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("kobolds", "kobold_death")));
+	public static final RegistryObject<SoundEvent> KOBOLD_HURT = REGISTRY.register("kobold_hurt", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("kobolds", "kobold_hurt")));
+	public static final RegistryObject<SoundEvent> KOBOLD_IDLE = REGISTRY.register("kobold_idle", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("kobolds", "kobold_idle")));
+	public static final RegistryObject<SoundEvent> MUSIC_KOBBLESTONE = REGISTRY.register("music_kobblestone", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("kobolds", "music_kobblestone")));
 }

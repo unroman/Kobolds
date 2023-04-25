@@ -59,6 +59,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionHand;
@@ -81,7 +82,8 @@ import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.advancements.Advancement;
 
 import javax.annotation.Nullable;
-import java.util.function.Predicate;
+
+import java.util.function.Predicate;
 import java.util.Iterator;
 
 public abstract class AbstractKoboldEntity extends Monster implements CrossbowAttackMob, RangedAttackMob {
@@ -436,7 +438,7 @@ public abstract class AbstractKoboldEntity extends Monster implements CrossbowAt
 			}
 		} else if (source.getDirectEntity() instanceof AbstractKoboldEntity) {
 			return false;
-		} else if (source == DamageSource.IN_FIRE) {
+		} else if (source.is(DamageTypes.IN_FIRE)) {
 			return false;
 		}
 		return super.hurt(source, amount);
@@ -580,4 +582,4 @@ public abstract class AbstractKoboldEntity extends Monster implements CrossbowAt
 			return false;
 		}
 	}
-}
+}
