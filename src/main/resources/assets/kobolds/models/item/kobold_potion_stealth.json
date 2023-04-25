@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "kobolds:items/invis_potion"
+    "layer0": "kobolds:item/invis_potion"
   }
 }

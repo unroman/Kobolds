@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "kobolds:items/water_potion"
+    "layer0": "kobolds:item/water_potion"
   }
 }
