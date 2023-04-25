@@ -1,0 +1,7 @@
+{
+  "asset_id": "kobolds:kobold",
+  "description": {
+    "translate": "trim_pattern.kobolds.kobold"
+  },
+  "template_item": "kobolds:kobold_template"
+}
