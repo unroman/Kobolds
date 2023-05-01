@@ -1,0 +1,66 @@
+{
+  "type": "minecraft:archaeology",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "kobolds:kobold_skull",
+          "weight": 12
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:emerald",
+          "weight": 12
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:amethyst_shard",
+          "weight": 12
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_ingot",
+          "weight": 12
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:crossbow",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kobolds:kobold_potion_health",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kobolds:kobold_potion_combat",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kobolds:kobold_potion_mining",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kobolds:kobold_infinity_potion",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "kobolds:chests/iron_loot",
+          "weight": 1
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}
