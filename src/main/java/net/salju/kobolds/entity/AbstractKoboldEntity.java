@@ -20,6 +20,7 @@ import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.CrossbowItem;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.entity.raid.Raider;
@@ -201,10 +202,10 @@ public abstract class AbstractKoboldEntity extends Monster implements CrossbowAt
 			} else if (!(hand.getItem() instanceof SwordItem)) {
 				return true;
 			} else {
-				SwordItem sworditem = (SwordItem) drop.getItem();
-				SwordItem sworditem1 = (SwordItem) hand.getItem();
-				if (sworditem.getDamage() != sworditem1.getDamage()) {
-					return sworditem.getDamage() > sworditem1.getDamage();
+				SwordItem newbie = (SwordItem) drop.getItem();
+				SwordItem weapon = (SwordItem) hand.getItem();
+				if (newbie.getDamage() != weapon.getDamage()) {
+					return newbie.getDamage() > weapon.getDamage();
 				} else {
 					return this.canReplaceEqualItem(drop, hand);
 				}
@@ -214,28 +215,30 @@ public abstract class AbstractKoboldEntity extends Monster implements CrossbowAt
 		} else if (drop.getItem() instanceof ArmorItem) {
 			if (EnchantmentHelper.hasBindingCurse(hand)) {
 				return false;
-			} else if (!(hand.getItem() instanceof ArmorItem)) {
+			} else if (hand.isEmpty() || hand.getItem() instanceof BlockItem) {
 				return true;
-			} else {
-				ArmorItem armoritem = (ArmorItem) drop.getItem();
-				ArmorItem armoritem1 = (ArmorItem) hand.getItem();
-				if (armoritem.getDefense() != armoritem1.getDefense()) {
-					return armoritem.getDefense() > armoritem1.getDefense();
-				} else if (armoritem.getToughness() != armoritem1.getToughness()) {
-					return armoritem.getToughness() > armoritem1.getToughness();
+			} else if (hand.getItem() instanceof ArmorItem) {
+				ArmorItem newbie = (ArmorItem) drop.getItem();
+				ArmorItem worn = (ArmorItem) hand.getItem();
+				if (newbie.getDefense() != worn.getDefense()) {
+					return newbie.getDefense() > worn.getDefense();
+				} else if (newbie.getToughness() != worn.getToughness()) {
+					return newbie.getToughness() > worn.getToughness();
 				} else {
 					return this.canReplaceEqualItem(drop, hand);
 				}
+			} else {
+				return false;
 			}
 		} else if (drop.getItem() instanceof ShieldItem && hand.isEmpty()) {
 			return true;
 		} else if (drop.getItem() == Items.EMERALD) {
 			ItemStack gem = (drop.copy());
 			ItemStack off = this.getOffhandItem();
-			if (off.getItem() == (ItemStack.EMPTY).getItem()) {
+			if (off.isEmpty()) {
 				if ((this instanceof KoboldEntity) || (this instanceof KoboldPirateEntity)) {
-					this.setItemInHand(InteractionHand.OFF_HAND, gem);
 					drop.shrink(1);
+					this.setItemInHand(InteractionHand.OFF_HAND, gem);
 				}
 			}
 			return false;
@@ -582,4 +585,4 @@ public abstract class AbstractKoboldEntity extends Monster implements CrossbowAt
 			return false;
 		}
 	}
-}
+}

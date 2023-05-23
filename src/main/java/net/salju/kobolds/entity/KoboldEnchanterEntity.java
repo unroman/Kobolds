@@ -3,7 +3,6 @@ package net.salju.kobolds.entity;
 import net.salju.kobolds.init.KoboldsModSounds;
 import net.salju.kobolds.init.KoboldsModEntities;
 import net.salju.kobolds.KoboldsMod;
-
 import net.minecraftforge.network.PlayMessages;
 
 import net.minecraft.world.phys.Vec3;
@@ -13,6 +12,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -50,26 +50,28 @@ public class KoboldEnchanterEntity extends AbstractKoboldEntity {
 		if (drop.getItem() == Items.EMERALD) {
 			ItemStack gem = (drop.copy());
 			ItemStack off = this.getOffhandItem();
-			if (off.getItem() == (ItemStack.EMPTY).getItem()) {
-				this.setItemInHand(InteractionHand.OFF_HAND, gem);
+			if (off.isEmpty()) {
 				drop.shrink(1);
+				this.setItemInHand(InteractionHand.OFF_HAND, gem);
 			}
 			return false;
 		} else if (drop.getItem() instanceof ArmorItem) {
 			if (EnchantmentHelper.hasBindingCurse(hand)) {
 				return false;
-			} else if (!(hand.getItem() instanceof ArmorItem)) {
+			} else if (hand.isEmpty() || hand.getItem() instanceof BlockItem) {
 				return true;
-			} else {
-				ArmorItem armoritem = (ArmorItem) drop.getItem();
-				ArmorItem armoritem1 = (ArmorItem) hand.getItem();
-				if (armoritem.getDefense() != armoritem1.getDefense()) {
-					return armoritem.getDefense() > armoritem1.getDefense();
-				} else if (armoritem.getToughness() != armoritem1.getToughness()) {
-					return armoritem.getToughness() > armoritem1.getToughness();
+			} else if (hand.getItem() instanceof ArmorItem) {
+				ArmorItem newbie = (ArmorItem) drop.getItem();
+				ArmorItem worn = (ArmorItem) hand.getItem();
+				if (newbie.getDefense() != worn.getDefense()) {
+					return newbie.getDefense() > worn.getDefense();
+				} else if (newbie.getToughness() != worn.getToughness()) {
+					return newbie.getToughness() > worn.getToughness();
 				} else {
 					return this.canReplaceEqualItem(drop, hand);
 				}
+			} else {
+				return false;
 			}
 		} else {
 			return false;
@@ -117,4 +119,4 @@ public class KoboldEnchanterEntity extends AbstractKoboldEntity {
 			return (this.kobold.getOffhandItem().getItem() == (Items.EMERALD));
 		}
 	}
-}
+}

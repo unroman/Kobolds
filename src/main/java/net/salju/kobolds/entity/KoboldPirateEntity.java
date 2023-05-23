@@ -3,8 +3,7 @@ package net.salju.kobolds.entity;
 import net.salju.kobolds.init.KoboldsModSounds;
 import net.salju.kobolds.init.KoboldsModEntities;
 import net.salju.kobolds.KoboldsMod;
-
-import net.minecraftforge.network.PlayMessages;
+import net.minecraftforge.network.PlayMessages;
 
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.Vec2;

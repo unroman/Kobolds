@@ -2,7 +2,6 @@ package net.salju.kobolds.entity;
 
 import net.salju.kobolds.init.KoboldsModSounds;
 import net.salju.kobolds.init.KoboldsModEntities;
-
 import net.minecraftforge.network.PlayMessages;
 
 import net.minecraft.world.phys.Vec3;
@@ -15,6 +14,7 @@ import net.minecraft.world.item.TridentItem;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -100,39 +100,41 @@ public class KoboldRascalEntity extends AbstractKoboldEntity {
 	}
 
 	@Override
-	protected boolean canReplaceCurrentItem(ItemStack item, ItemStack stack) {
-		if (item.getItem() instanceof SwordItem) {
-			if (stack.isEmpty() && (this.getOffhandItem().getItem() instanceof TridentItem)) {
+	protected boolean canReplaceCurrentItem(ItemStack drop, ItemStack hand) {
+		if (drop.getItem() instanceof SwordItem) {
+			if (hand.isEmpty() && (this.getOffhandItem().getItem() instanceof TridentItem)) {
 				return false;
-			} else if (!(stack.getItem() instanceof SwordItem)) {
+			} else if (!(hand.getItem() instanceof SwordItem)) {
 				return true;
 			} else {
-				SwordItem sworditem = (SwordItem) item.getItem();
-				SwordItem sworditem1 = (SwordItem) stack.getItem();
-				if (sworditem.getDamage() != sworditem1.getDamage()) {
-					return sworditem.getDamage() > sworditem1.getDamage();
+				SwordItem newbie = (SwordItem) drop.getItem();
+				SwordItem weapon = (SwordItem) hand.getItem();
+				if (newbie.getDamage() != weapon.getDamage()) {
+					return newbie.getDamage() > weapon.getDamage();
 				} else {
-					return this.canReplaceEqualItem(item, stack);
+					return this.canReplaceEqualItem(drop, hand);
 				}
 			}
-		} else if (item.getItem() instanceof ArmorItem) {
-			if (EnchantmentHelper.hasBindingCurse(stack)) {
+		} else if (drop.getItem() instanceof ArmorItem) {
+			if (EnchantmentHelper.hasBindingCurse(hand)) {
 				return false;
-			} else if (!(stack.getItem() instanceof ArmorItem)) {
+			} else if (hand.isEmpty() || hand.getItem() instanceof BlockItem) {
 				return true;
-			} else {
-				ArmorItem armoritem = (ArmorItem) item.getItem();
-				ArmorItem armoritem1 = (ArmorItem) stack.getItem();
-				if (armoritem.getDefense() != armoritem1.getDefense()) {
-					return armoritem.getDefense() > armoritem1.getDefense();
-				} else if (armoritem.getToughness() != armoritem1.getToughness()) {
-					return armoritem.getToughness() > armoritem1.getToughness();
+			} else if (hand.getItem() instanceof ArmorItem) {
+				ArmorItem newbie = (ArmorItem) drop.getItem();
+				ArmorItem worn = (ArmorItem) hand.getItem();
+				if (newbie.getDefense() != worn.getDefense()) {
+					return newbie.getDefense() > worn.getDefense();
+				} else if (newbie.getToughness() != worn.getToughness()) {
+					return newbie.getToughness() > worn.getToughness();
 				} else {
-					return this.canReplaceEqualItem(item, stack);
+					return this.canReplaceEqualItem(drop, hand);
 				}
+			} else {
+				return false;
 			}
 		} else {
 			return false;
 		}
 	}
-}
+}
