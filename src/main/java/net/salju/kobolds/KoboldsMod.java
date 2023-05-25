@@ -28,6 +28,7 @@ public class KoboldsMod {
 		KoboldsBanners.REGISTRY.register(bus);
 		KoboldsModEntities.REGISTRY.register(bus);
 		KoboldsEnchantments.REGISTRY.register(bus);
+		KoboldsStructures.REGISTRY.register(bus);
 	}
 
 	private static final Collection<AbstractMap.SimpleEntry<Runnable, Integer>> workQueue = new ConcurrentLinkedQueue<>();
