@@ -2,7 +2,7 @@ package net.salju.kobolds.entity;
 
 import net.salju.kobolds.init.KoboldsModSounds;
 import net.salju.kobolds.init.KoboldsModEntities;
-import net.minecraftforge.network.PlayMessages;
+import net.minecraftforge.network.PlayMessages;
 
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.AABB;
@@ -10,7 +10,6 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.TridentItem;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ItemStack;
@@ -102,9 +101,7 @@ public class KoboldRascalEntity extends AbstractKoboldEntity {
 	@Override
 	protected boolean canReplaceCurrentItem(ItemStack drop, ItemStack hand) {
 		if (drop.getItem() instanceof SwordItem) {
-			if (hand.isEmpty() && (this.getOffhandItem().getItem() instanceof TridentItem)) {
-				return false;
-			} else if (!(hand.getItem() instanceof SwordItem)) {
+			if (!(hand.getItem() instanceof SwordItem)) {
 				return true;
 			} else {
 				SwordItem newbie = (SwordItem) drop.getItem();
@@ -137,4 +134,4 @@ public class KoboldRascalEntity extends AbstractKoboldEntity {
 			return false;
 		}
 	}
-}
+}

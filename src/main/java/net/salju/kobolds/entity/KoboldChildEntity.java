@@ -1,8 +1,7 @@
 package net.salju.kobolds.entity;
 
 import net.salju.kobolds.init.KoboldsModEntities;
-
-import net.minecraftforge.network.PlayMessages;
+import net.minecraftforge.network.PlayMessages;
 
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.Level;
@@ -112,4 +111,4 @@ public class KoboldChildEntity extends AbstractKoboldEntity {
 		}
 		return InteractionResult.FAIL;
 	}
-}
+}

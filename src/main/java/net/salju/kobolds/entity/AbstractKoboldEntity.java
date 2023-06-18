@@ -83,12 +83,12 @@ import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.advancements.Advancement;
 
 import javax.annotation.Nullable;
-
-import java.util.function.Predicate;
+import java.util.function.Predicate;
 import java.util.Iterator;
 
 public abstract class AbstractKoboldEntity extends Monster implements CrossbowAttackMob, RangedAttackMob {
 	private static final EntityDataAccessor<Boolean> DATA_CHARGING_STATE = SynchedEntityData.defineId(AbstractKoboldEntity.class, EntityDataSerializers.BOOLEAN);
+	private ItemStack primary = new ItemStack(KoboldsItems.KOBOLD_IRON_SWORD.get());
 	private boolean partyKobold;
 	@Nullable
 	private BlockPos jukebox;
@@ -127,6 +127,21 @@ public abstract class AbstractKoboldEntity extends Monster implements CrossbowAt
 	}
 
 	@Override
+	public void addAdditionalSaveData(CompoundTag tag) {
+		super.addAdditionalSaveData(tag);
+		tag.put("Primary", this.primary.save(new CompoundTag()));
+	}
+
+	@Override
+	public void readAdditionalSaveData(CompoundTag tag) {
+		super.readAdditionalSaveData(tag);
+		if (tag.contains("Primary")) {
+			ItemStack stack = ItemStack.of(tag.getCompound("Primary"));
+			this.primary = stack;
+		}
+	}
+
+	@Override
 	protected boolean shouldDespawnInPeaceful() {
 		return false;
 	}
@@ -159,7 +174,7 @@ public abstract class AbstractKoboldEntity extends Monster implements CrossbowAt
 			trident.shoot(d0, d1 + d3 * (double) 0.2F, d2, 1.6F, (float) (14 - this.level.getDifficulty().getId() * 4));
 			this.playSound(SoundEvents.DROWNED_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
 			this.level.addFreshEntity(trident);
-			this.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(KoboldsItems.KOBOLD_IRON_SWORD.get()));
+			this.setItemInHand(InteractionHand.MAIN_HAND, this.primary);
 			this.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
 			this.getPersistentData().putDouble("TimerTrident", 1200);
 		}
@@ -192,6 +207,37 @@ public abstract class AbstractKoboldEntity extends Monster implements CrossbowAt
 	@Override
 	public MobType getMobType() {
 		return MobType.UNDEFINED;
+	}
+
+	@Override
+	public ItemStack equipItemIfPossible(ItemStack stack) {
+		EquipmentSlot slot = getEquipmentSlotForItem(stack);
+		ItemStack current = this.getItemBySlot(slot);
+		boolean flag = this.canReplaceCurrentItem(stack, current);
+		if (stack.getItem() == Items.EMERALD || stack.getItem() instanceof TridentItem) {
+			slot = EquipmentSlot.OFFHAND;
+			current = this.getItemBySlot(slot);
+			flag = this.canReplaceCurrentItem(stack, current);
+		}
+		if (flag && this.canHoldItem(stack)) {
+			double d0 = (double) this.getEquipmentDropChance(slot);
+			if (!current.isEmpty() && (double) Math.max(this.random.nextFloat() - 0.1F, 0.0F) < d0) {
+				this.spawnAtLocation(current);
+			}
+			if (stack.getItem() == Items.EMERALD && (stack.getCount() > 1)) {
+				stack.setCount(1);
+			}
+			if (slot.isArmor() && stack.getCount() > 1) {
+				ItemStack copy = stack.copyWithCount(1);
+				this.setItemSlotAndDropWhenKilled(slot, copy);
+				return copy;
+			} else {
+				this.setItemSlotAndDropWhenKilled(slot, stack);
+				return stack;
+			}
+		} else {
+			return ItemStack.EMPTY;
+		}
 	}
 
 	@Override
@@ -232,16 +278,12 @@ public abstract class AbstractKoboldEntity extends Monster implements CrossbowAt
 			}
 		} else if (drop.getItem() instanceof ShieldItem && hand.isEmpty()) {
 			return true;
-		} else if (drop.getItem() == Items.EMERALD) {
-			ItemStack gem = (drop.copy());
-			ItemStack off = this.getOffhandItem();
-			if (off.isEmpty()) {
-				if ((this instanceof KoboldEntity) || (this instanceof KoboldPirateEntity)) {
-					drop.shrink(1);
-					this.setItemInHand(InteractionHand.OFF_HAND, gem);
-				}
-			}
-			return false;
+		} else if (drop.getItem() instanceof TridentItem && hand.isEmpty() && !(drop.isEnchanted()) && !(this.getPersistentData().getDouble("TimerTrident") > 0)) {
+			this.primary = this.getMainHandItem();
+			this.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+			return true;
+		} else if (drop.getItem() == Items.EMERALD && hand.isEmpty() && !(this instanceof KoboldCaptainEntity)) {
+			return true;
 		} else {
 			return false;
 		}
@@ -412,6 +454,7 @@ public abstract class AbstractKoboldEntity extends Monster implements CrossbowAt
 				this.getPersistentData().putDouble("TimerTrident", (this.getPersistentData().getDouble("TimerTrident") - 1));
 			} else if (this.getPersistentData().getDouble("TimerTrident") == 1) {
 				this.getPersistentData().putDouble("TimerTrident", (this.getPersistentData().getDouble("TimerTrident") - 1));
+				this.primary = this.getMainHandItem();
 				this.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
 				this.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.TRIDENT));
 			}
@@ -585,4 +628,4 @@ public abstract class AbstractKoboldEntity extends Monster implements CrossbowAt
 			return false;
 		}
 	}
-}
+}

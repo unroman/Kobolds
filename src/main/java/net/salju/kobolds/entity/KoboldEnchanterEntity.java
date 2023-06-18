@@ -47,15 +47,7 @@ public class KoboldEnchanterEntity extends AbstractKoboldEntity {
 
 	@Override
 	protected boolean canReplaceCurrentItem(ItemStack drop, ItemStack hand) {
-		if (drop.getItem() == Items.EMERALD) {
-			ItemStack gem = (drop.copy());
-			ItemStack off = this.getOffhandItem();
-			if (off.isEmpty()) {
-				drop.shrink(1);
-				this.setItemInHand(InteractionHand.OFF_HAND, gem);
-			}
-			return false;
-		} else if (drop.getItem() instanceof ArmorItem) {
+		if (drop.getItem() instanceof ArmorItem) {
 			if (EnchantmentHelper.hasBindingCurse(hand)) {
 				return false;
 			} else if (hand.isEmpty() || hand.getItem() instanceof BlockItem) {
@@ -73,6 +65,8 @@ public class KoboldEnchanterEntity extends AbstractKoboldEntity {
 			} else {
 				return false;
 			}
+		} else if (drop.getItem() == Items.EMERALD && hand.isEmpty()) {
+			return true;
 		} else {
 			return false;
 		}

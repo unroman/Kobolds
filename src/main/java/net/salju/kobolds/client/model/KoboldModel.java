@@ -231,4 +231,4 @@ public class KoboldModel<T extends AbstractKoboldEntity> extends HumanoidModel<T
 		leftArm.render(poseStack, buffer, packedLight, packedOverlay);
 		leftLeg.render(poseStack, buffer, packedLight, packedOverlay);
 	}
-}
+}

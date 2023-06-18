@@ -9,7 +9,7 @@ import net.minecraft.world.item.Items;
 import java.util.function.Supplier;
 
 public enum KoboldsItemTiers implements Tier {
-	KOBOLD(2, 0, 4.0F, 3.0F, 14, () -> Ingredient.of(Items.IRON_INGOT));
+	KOBOLD(2, 1096, 4.0F, 3.0F, 14, () -> Ingredient.of(Items.IRON_INGOT));
 
 	private final int level;
 	private final int durability;
