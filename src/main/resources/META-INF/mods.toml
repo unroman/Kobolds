@@ -4,14 +4,12 @@ license="MIT License"
 
 [[mods]]
 modId="kobolds"
-version="2.7.5"
+version="2.7.8"
 displayName="Kobolds"
 credits="Jusey1, Giodude1580, Burack, Lorian Ross"
 displayURL="https://discord.gg/s7QaYGUzZU"
 authors="Jusey1"
-description='''
-Tiny Lizards
-'''
+description="Tiny Lizards"
 
 [[dependencies.kobolds]]
     modId="minecraft"
