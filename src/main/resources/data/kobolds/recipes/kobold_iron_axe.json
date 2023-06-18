@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "minecraft:iron_ingot"
+  },
+  "base": {
+    "item": "minecraft:iron_axe"
+  },
+  "result": {
+    "item": "kobolds:kobold_iron_axe"
+  },
+  "template": {
+    "item": "kobolds:kobold_template"
+  }
+}
