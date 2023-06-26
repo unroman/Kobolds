@@ -58,6 +58,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -83,12 +84,14 @@ import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.advancements.Advancement;
 
 import javax.annotation.Nullable;
-import java.util.function.Predicate;
+
+import java.util.function.Predicate;
 import java.util.Iterator;
 
 public abstract class AbstractKoboldEntity extends Monster implements CrossbowAttackMob, RangedAttackMob {
 	private static final EntityDataAccessor<Boolean> DATA_CHARGING_STATE = SynchedEntityData.defineId(AbstractKoboldEntity.class, EntityDataSerializers.BOOLEAN);
 	private ItemStack primary = new ItemStack(KoboldsItems.KOBOLD_IRON_SWORD.get());
+	private ItemStack trident = ItemStack.EMPTY;
 	private boolean partyKobold;
 	@Nullable
 	private BlockPos jukebox;
@@ -108,7 +111,7 @@ public abstract class AbstractKoboldEntity extends Monster implements CrossbowAt
 		this.targetSelector.addGoal(0, new AbstractKoboldEntity.KoboldRevengeGoal(this));
 		this.goalSelector.addGoal(1, new AbstractKoboldEntity.KoboldShieldGoal(this));
 		this.goalSelector.addGoal(1, new AbstractKoboldEntity.KoboldHealGoal(this));
-		this.goalSelector.addGoal(1, new AbstractKoboldEntity.KoboldTridentAttackGoal(this, 1.0D, 40, 10.0F));
+		this.goalSelector.addGoal(1, new AbstractKoboldEntity.KoboldTridentAttackGoal(this, 1.0D, 40, 12.0F));
 		this.goalSelector.addGoal(1, new RangedCrossbowAttackGoal<>(this, 1.0D, 12.0F));
 		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 12, true, false, new AbstractKoboldEntity.KoboldAttackSelector(this)));
 		this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1));
@@ -130,6 +133,7 @@ public abstract class AbstractKoboldEntity extends Monster implements CrossbowAt
 	public void addAdditionalSaveData(CompoundTag tag) {
 		super.addAdditionalSaveData(tag);
 		tag.put("Primary", this.primary.save(new CompoundTag()));
+		tag.put("Trident", this.trident.save(new CompoundTag()));
 	}
 
 	@Override
@@ -138,6 +142,10 @@ public abstract class AbstractKoboldEntity extends Monster implements CrossbowAt
 		if (tag.contains("Primary")) {
 			ItemStack stack = ItemStack.of(tag.getCompound("Primary"));
 			this.primary = stack;
+		}
+		if (tag.contains("Trident")) {
+			ItemStack stack = ItemStack.of(tag.getCompound("Trident"));
+			this.trident = stack;
 		}
 	}
 
@@ -166,17 +174,18 @@ public abstract class AbstractKoboldEntity extends Monster implements CrossbowAt
 		if (this.getMainHandItem().getItem() instanceof CrossbowItem) {
 			this.performCrossbowAttack(this, 6.0F);
 		} else if (this.getOffhandItem().getItem() instanceof TridentItem) {
-			ThrownTrident trident = new ThrownTrident(this.level, this, new ItemStack(Items.TRIDENT));
+			this.trident = this.getOffhandItem();
+			ThrownTrident proj = new ThrownTrident(this.level, this, this.trident);
 			double d0 = target.getX() - this.getX();
-			double d1 = target.getY(0.3333333333333333D) - trident.getY();
+			double d1 = target.getY(0.3333333333333333D) - proj.getY();
 			double d2 = target.getZ() - this.getZ();
 			double d3 = (double) Mth.sqrt((float) (d0 * d0 + d2 * d2));
-			trident.shoot(d0, d1 + d3 * (double) 0.2F, d2, 1.6F, (float) (14 - this.level.getDifficulty().getId() * 4));
+			proj.shoot(d0, d1 + d3 * (double) 0.2F, d2, 1.6F, (float) (14 - this.level.getDifficulty().getId() * 4));
 			this.playSound(SoundEvents.DROWNED_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-			this.level.addFreshEntity(trident);
+			this.level.addFreshEntity(proj);
 			this.setItemInHand(InteractionHand.MAIN_HAND, this.primary);
 			this.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
-			this.getPersistentData().putDouble("TimerTrident", 1200);
+			this.getPersistentData().putDouble("TimerCooldown", 1200);
 		}
 	}
 
@@ -276,10 +285,11 @@ public abstract class AbstractKoboldEntity extends Monster implements CrossbowAt
 			} else {
 				return false;
 			}
-		} else if (drop.getItem() instanceof ShieldItem && hand.isEmpty()) {
+		} else if (drop.getItem() instanceof ShieldItem && hand.isEmpty() && this.trident.isEmpty()) {
 			return true;
-		} else if (drop.getItem() instanceof TridentItem && hand.isEmpty() && !(drop.isEnchanted()) && !(this.getPersistentData().getDouble("TimerTrident") > 0)) {
+		} else if (drop.getItem() instanceof TridentItem && hand.isEmpty() && this.trident.isEmpty()) {
 			this.primary = this.getMainHandItem();
+			this.trident = drop;
 			this.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
 			return true;
 		} else if (drop.getItem() == Items.EMERALD && hand.isEmpty() && !(this instanceof KoboldCaptainEntity)) {
@@ -437,6 +447,7 @@ public abstract class AbstractKoboldEntity extends Monster implements CrossbowAt
 			if (Math.random() >= 0.75) {
 				this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.TRIDENT));
 				this.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+				this.trident = this.getOffhandItem();
 			}
 		}
 		this.setDropChance(EquipmentSlot.OFFHAND, 0.0F);
@@ -450,42 +461,44 @@ public abstract class AbstractKoboldEntity extends Monster implements CrossbowAt
 		double y = this.getY();
 		double z = this.getZ();
 		if (!this.level.isClientSide && this.isAlive() && this.isEffectiveAi()) {
-			if (this.getPersistentData().getDouble("TimerTrident") > 1) {
-				this.getPersistentData().putDouble("TimerTrident", (this.getPersistentData().getDouble("TimerTrident") - 1));
-			} else if (this.getPersistentData().getDouble("TimerTrident") == 1) {
-				this.getPersistentData().putDouble("TimerTrident", (this.getPersistentData().getDouble("TimerTrident") - 1));
-				this.primary = this.getMainHandItem();
-				this.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
-				this.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.TRIDENT));
-			}
-			if (this.getPersistentData().getDouble("TimerPotion") > 0) {
-				this.getPersistentData().putDouble("TimerPotion", (this.getPersistentData().getDouble("TimerPotion") - 1));
-			}
-			if (this.getPersistentData().getDouble("TimerApple") == 12000) {
-				this.getPersistentData().putDouble("TimerApple", (this.getPersistentData().getDouble("TimerApple") - 1));
-				if (world instanceof ServerLevel lvl) {
-					Mob kobold = new KoboldChildEntity(KoboldsModEntities.KOBOLD_CHILD.get(), lvl);
-					kobold.moveTo(x, y, z, world.getRandom().nextFloat() * 360F, 0);
-					kobold.finalizeSpawn(lvl, world.getCurrentDifficultyAt(kobold.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-					world.addFreshEntity(kobold);
+			if (this.getPersistentData().getDouble("TimerCooldown") > 0) {
+				if (this.getPersistentData().getDouble("TimerCooldown") == 1 && !(this.trident.isEmpty())) {
+					this.primary = this.getMainHandItem();
+					this.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+					this.setItemInHand(InteractionHand.OFF_HAND, this.trident);
 				}
-			} else if (this.getPersistentData().getDouble("TimerApple") > 0) {
+				this.getPersistentData().putDouble("TimerCooldown", (this.getPersistentData().getDouble("TimerCooldown") - 1));
+			}
+			if (this.getPersistentData().getDouble("TimerApple") > 0) {
+				if (this.getPersistentData().getDouble("TimerApple") == 12000) {
+					if (world instanceof ServerLevel lvl) {
+						Mob kobold = new KoboldChildEntity(KoboldsModEntities.KOBOLD_CHILD.get(), lvl);
+						kobold.moveTo(x, y, z, world.getRandom().nextFloat() * 360F, 0);
+						kobold.finalizeSpawn(lvl, world.getCurrentDifficultyAt(kobold.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+						world.addFreshEntity(kobold);
+					}
+				}
 				this.getPersistentData().putDouble("TimerApple", (this.getPersistentData().getDouble("TimerApple") - 1));
+			}
+			for (ThrownTrident proj : this.level.getEntitiesOfClass(ThrownTrident.class, this.getBoundingBox().inflate(0.85D))) {
+				if ((proj.getOwner() == this) && (proj.clientSideReturnTridentTickCount > 0) && this.getOffhandItem().isEmpty()) {
+					this.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+					this.setItemInHand(InteractionHand.OFF_HAND, this.trident);
+					this.getPersistentData().putDouble("TimerCooldown", 0);
+					proj.discard();
+				}
 			}
 		}
 	}
 
 	@Override
 	public boolean hurt(DamageSource source, float amount) {
-		if (source.getDirectEntity() instanceof Projectile) {
-			Projectile proj = (Projectile) source.getDirectEntity();
-			if (proj.getOwner() instanceof AbstractKoboldEntity) {
-				return false;
-			}
-		} else if (source.getDirectEntity() instanceof AbstractKoboldEntity) {
+		Entity direct = source.getDirectEntity();
+		if ((direct instanceof Projectile proj && proj.getOwner() instanceof AbstractKoboldEntity) || (direct instanceof AbstractKoboldEntity) || (source.is(DamageTypes.IN_FIRE))) {
 			return false;
-		} else if (source.is(DamageTypes.IN_FIRE)) {
-			return false;
+		}
+		if (direct instanceof LivingEntity target && target.canDisableShield() && this.isBlocking()) {
+			this.getPersistentData().putDouble("TimerCooldown", 100);
 		}
 		return super.hurt(source, amount);
 	}
@@ -516,7 +529,7 @@ public abstract class AbstractKoboldEntity extends Monster implements CrossbowAt
 
 		@Override
 		public boolean canUse() {
-			return kobold.getOffhandItem().getItem() instanceof ShieldItem && raiseShield();
+			return kobold.getOffhandItem().getItem() instanceof ShieldItem && raiseShield() && (kobold.getPersistentData().getDouble("TimerCooldown") == 0);
 		}
 
 		@Override
@@ -526,30 +539,24 @@ public abstract class AbstractKoboldEntity extends Monster implements CrossbowAt
 
 		@Override
 		public void start() {
-			if (kobold.getOffhandItem().getItem() instanceof ShieldItem)
-				kobold.startUsingItem(InteractionHand.OFF_HAND);
+			kobold.startUsingItem(InteractionHand.OFF_HAND);
+		}
+
+		@Override
+		public void stop() {
+			kobold.stopUsingItem();
 		}
 
 		protected boolean raiseShield() {
-			LivingEntity target = kobold.getTarget();
-			if (target instanceof RangedAttackMob && kobold.distanceTo(target) >= 0.2D) {
-				if (target.getMainHandItem().getItem() instanceof AxeItem) {
-					kobold.stopUsingItem();
-					return false;
-				} else {
+			if (kobold.getTarget() != null) {
+				LivingEntity target = kobold.getTarget();
+				if (target instanceof RangedAttackMob && kobold.distanceTo(target) >= 0.2D) {
+					return true;
+				} else if (kobold.distanceTo(target) >= 0.2D && kobold.distanceTo(target) <= 5.2D) {
 					return true;
 				}
-			} else if (target instanceof LivingEntity && kobold.distanceTo(target) >= 0.2D && kobold.distanceTo(target) <= 3.2D) {
-				if (target.getMainHandItem().getItem() instanceof AxeItem) {
-					kobold.stopUsingItem();
-					return false;
-				} else {
-					return true;
-				}
-			} else {
-				kobold.stopUsingItem();
-				return false;
 			}
+			return false;
 		}
 	}
 
@@ -562,49 +569,49 @@ public abstract class AbstractKoboldEntity extends Monster implements CrossbowAt
 
 		@Override
 		public boolean canUse() {
-			return (this.kobold.getHealth() < 12) && (this.kobold.getPersistentData().getDouble("TimerPotion") == 0) && checkHand() && !this.kobold.isBaby() && !(this.kobold instanceof KoboldRascalEntity);
+			return (kobold.getHealth() < 12) && (kobold.getPersistentData().getDouble("TimerCooldown") == 0) && checkHand() && !kobold.isBaby() && !(kobold instanceof KoboldRascalEntity);
 		}
 
 		@Override
 		public void start() {
-			this.kobold.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(KoboldsItems.KOBOLD_POTION_HEALTH.get()));
-			this.kobold.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 32, -4, (false), (false)));
-			this.kobold.playSound(SoundEvents.GENERIC_DRINK, 0.5F, 1.0F);
+			kobold.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(KoboldsItems.KOBOLD_POTION_HEALTH.get()));
+			kobold.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 32, -4, (false), (false)));
+			kobold.playSound(SoundEvents.GENERIC_DRINK, 0.5F, 1.0F);
 			KoboldsMod.queueServerWork(32, () -> {
-				this.kobold.addEffect(new MobEffectInstance(MobEffects.HEAL, 1, 1, (false), (false)));
-				this.kobold.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 440, 1, (false), (false)));
-				this.kobold.getPersistentData().putDouble("TimerPotion", 900);
-				this.kobold.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+				kobold.addEffect(new MobEffectInstance(MobEffects.HEAL, 1, 1, (false), (false)));
+				kobold.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 600, 0, (false), (false)));
+				kobold.getPersistentData().putDouble("TimerCooldown", 600);
+				kobold.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
 			});
 		}
 
 		protected boolean checkHand() {
-			return (this.kobold.getOffhandItem().getItem() == (ItemStack.EMPTY).getItem()) || (this.kobold.getOffhandItem().getItem() == KoboldsItems.KOBOLD_POTION_HEALTH.get());
+			return (kobold.getOffhandItem().isEmpty()) || (kobold.getOffhandItem().getItem() == KoboldsItems.KOBOLD_POTION_HEALTH.get());
 		}
 	}
 
 	class KoboldTridentAttackGoal extends RangedAttackGoal {
 		public final AbstractKoboldEntity kobold;
 
-		public KoboldTridentAttackGoal(RangedAttackMob mob, double dub, int inty, float enty) {
-			super(mob, dub, inty, enty);
-			this.kobold = (AbstractKoboldEntity) mob;
+		public KoboldTridentAttackGoal(RangedAttackMob kobold, double dub, int inty, float enty) {
+			super(kobold, dub, inty, enty);
+			this.kobold = (AbstractKoboldEntity) kobold;
 		}
 
 		public boolean canUse() {
-			return super.canUse() && this.kobold.getOffhandItem().getItem() == Items.TRIDENT;
+			return (super.canUse() && kobold.getOffhandItem().getItem() == Items.TRIDENT);
 		}
 
 		public void start() {
 			super.start();
-			this.kobold.setAggressive(true);
-			this.kobold.startUsingItem(InteractionHand.OFF_HAND);
+			kobold.setAggressive(true);
+			kobold.startUsingItem(InteractionHand.OFF_HAND);
 		}
 
 		public void stop() {
 			super.stop();
-			this.kobold.stopUsingItem();
-			this.kobold.setAggressive(false);
+			kobold.setAggressive(false);
+			kobold.stopUsingItem();
 		}
 	}
 
