@@ -8,7 +8,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.material.PushReaction;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
@@ -41,7 +41,7 @@ public class KoboldSkull extends Block implements SimpleWaterloggedBlock {
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
 	public KoboldSkull() {
-		super(BlockBehaviour.Properties.of(Material.DECORATION).sound(SoundType.BONE_BLOCK).strength(0.7f, 4f).noOcclusion().randomTicks().isRedstoneConductor((bs, br, bp) -> false).dynamicShape().offsetType(Block.OffsetType.XZ));
+		super(BlockBehaviour.Properties.of().mapColor(MapColor.NONE).sound(SoundType.BONE_BLOCK).strength(0.7f, 4f).noOcclusion().randomTicks().isRedstoneConductor((bs, br, bp) -> false).dynamicShape().offsetType(Block.OffsetType.XZ));
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
 	}
 
@@ -139,4 +139,4 @@ public class KoboldSkull extends Block implements SimpleWaterloggedBlock {
 			world.addFreshEntity(skele);
 		}
 	}
-}
+}

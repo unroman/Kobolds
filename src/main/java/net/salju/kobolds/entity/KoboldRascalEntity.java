@@ -59,7 +59,7 @@ public class KoboldRascalEntity extends AbstractKoboldEntity {
 	@Override
 	public InteractionResult mobInteract(Player player, InteractionHand hand) {
 		super.mobInteract(player, hand);
-		LevelAccessor world = this.level;
+		LevelAccessor world = this.level();
 		double x = this.getX();
 		double y = this.getY();
 		double z = this.getZ();
@@ -79,7 +79,7 @@ public class KoboldRascalEntity extends AbstractKoboldEntity {
 			}
 			this.isFound = true;
 		}
-		for (AbstractKoboldEntity kobolds : this.level.getEntitiesOfClass(AbstractKoboldEntity.class, this.getBoundingBox().inflate(128.0D))) {
+		for (AbstractKoboldEntity kobolds : this.level().getEntitiesOfClass(AbstractKoboldEntity.class, this.getBoundingBox().inflate(128.0D))) {
 			if (!(kobolds instanceof KoboldRascalEntity)) {
 				this.getNavigation().moveTo(kobolds.getX(), kobolds.getY(), kobolds.getZ(), 1.2);
 			}

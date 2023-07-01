@@ -54,7 +54,7 @@ public class KoboldChildEntity extends AbstractKoboldEntity {
 	@Override
 	public void baseTick() {
 		super.baseTick();
-		LevelAccessor world = this.level;
+		LevelAccessor world = this.level();
 		double x = this.getX();
 		double y = this.getY();
 		double z = this.getZ();
@@ -100,7 +100,7 @@ public class KoboldChildEntity extends AbstractKoboldEntity {
 	@Override
 	public InteractionResult mobInteract(Player player, InteractionHand hand) {
 		super.mobInteract(player, hand);
-		LevelAccessor world = this.level;
+		LevelAccessor world = this.level();
 		ItemStack gem = player.getItemInHand(hand);
 		if (gem.is(ItemTags.create(new ResourceLocation("kobolds:kobold_breed_items")))) {
 			if (!player.getAbilities().instabuild) {

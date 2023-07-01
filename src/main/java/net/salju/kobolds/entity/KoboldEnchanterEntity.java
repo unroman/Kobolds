@@ -90,7 +90,7 @@ public class KoboldEnchanterEntity extends AbstractKoboldEntity {
 			KoboldsMod.queueServerWork(100, () -> {
 				this.kobold.swing(InteractionHand.MAIN_HAND, true);
 				this.kobold.playSound(KoboldsModSounds.KOBOLD_TRADE.get(), 1.0F, 1.0F);
-				LevelAccessor world = this.kobold.level;
+				LevelAccessor world = this.kobold.level();
 				double x = this.kobold.getX();
 				double y = this.kobold.getY();
 				double z = this.kobold.getZ();

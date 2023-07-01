@@ -26,6 +26,7 @@ public class KoboldsMod {
 		KoboldsBlocks.REGISTRY.register(bus);
 		KoboldsItems.REGISTRY.register(bus);
 		KoboldsBanners.REGISTRY.register(bus);
+		KoboldsTabs.REGISTRY.register(bus);
 		KoboldsModEntities.REGISTRY.register(bus);
 		KoboldsEnchantments.REGISTRY.register(bus);
 		KoboldsStructures.REGISTRY.register(bus);

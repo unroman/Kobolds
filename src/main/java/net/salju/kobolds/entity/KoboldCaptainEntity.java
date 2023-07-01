@@ -51,8 +51,8 @@ public class KoboldCaptainEntity extends AbstractKoboldEntity {
 		super.mobInteract(player, hand);
 		ItemStack gem = (player.getItemInHand(hand).copy());
 		ItemStack off = this.getOffhandItem();
-		LevelAccessor world = this.level;
-		if (!this.level.isClientSide && this.isAlive()) {
+		LevelAccessor world = this.level();
+		if (!world.isClientSide() && this.isAlive()) {
 			if (off.getItem() == (ItemStack.EMPTY).getItem()) {
 				if (gem.is(ItemTags.create(new ResourceLocation("kobolds:captain_tier_one"))) || gem.is(ItemTags.create(new ResourceLocation("kobolds:captain_tier_two")))
 						|| gem.is(ItemTags.create(new ResourceLocation("kobolds:captain_tier_three")))) {
@@ -83,7 +83,7 @@ public class KoboldCaptainEntity extends AbstractKoboldEntity {
 		public void start() {
 			this.kobold.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 120, -10, (false), (false)));
 			ItemStack off = this.kobold.getOffhandItem();
-			LevelAccessor world = this.kobold.level;
+			LevelAccessor world = this.kobold.level();
 			double x = this.kobold.getX();
 			double y = this.kobold.getY();
 			double z = this.kobold.getZ();

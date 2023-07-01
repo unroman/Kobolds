@@ -93,11 +93,11 @@ public class KoboldZombieDrownedEntity extends Drowned {
 	@Override
 	public void baseTick() {
 		super.baseTick();
-		LevelAccessor world = this.level;
+		LevelAccessor world = this.level();
 		double x = this.getX();
 		double y = this.getY();
 		double z = this.getZ();
-		if (!this.level.isClientSide() && this.isAlive() && !this.isNoAi()) {
+		if (!world.isClientSide() && this.isAlive() && !this.isNoAi()) {
 			if (this.getPersistentData().getDouble("Convert") > 1) {
 				this.getPersistentData().putDouble("Convert", (this.getPersistentData().getDouble("Convert") - 1));
 			} else if (this.getPersistentData().getDouble("Convert") == 1) {
@@ -134,13 +134,13 @@ public class KoboldZombieDrownedEntity extends Drowned {
 	public InteractionResult mobInteract(Player player, InteractionHand hand) {
 		super.mobInteract(player, hand);
 		ItemStack apple = player.getItemInHand(hand);
-		LevelAccessor world = this.level;
+		LevelAccessor world = this.level();
 		double x = this.getX();
 		double y = this.getY();
 		double z = this.getZ();
 		double waitTicks = 0;
 		double potionLevel = 0;
-		if (!this.level.isClientSide() && apple.getItem() == Items.GOLDEN_APPLE && this.hasEffect(MobEffects.WEAKNESS)) {
+		if (!world.isClientSide() && apple.getItem() == Items.GOLDEN_APPLE && this.hasEffect(MobEffects.WEAKNESS)) {
 			if (world.getDifficulty() == Difficulty.EASY) {
 				potionLevel = 0;
 				waitTicks = 1200;
