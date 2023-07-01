@@ -3,8 +3,8 @@
   "subtitles.kobold_hurt": "Ай!",
   "subtitles.music_kobblestone": "Слишком громкая музыка!",
   "entity.kobolds.kobold_zombie_drowned": "Зомбольд утопленник",
-  "item.kobolds.kobold_potion_water": "Кобольдское зелье подводного дыхания",
   "entity.kobolds.kobold_warrior": "Кобольд войн",
+  "item.kobolds.kobold_potion_water": "Кобольдское зелье подводного дыхания",
   "item.kobolds.banner_pattern_kobold": "Узор флага",
   "block.minecraft.banner.kobolds.kobold.brown": "Коричневый кобольд",
   "entity.kobolds.kobold": "Кобольд",
@@ -72,7 +72,7 @@
   "entity.kobolds.kobold_zombie": "Зомбольд",
   "block.minecraft.banner.kobolds.kobold.red": "Красный кобольд",
   "entity.kobolds.kobold_captain": "Кобольд капитан",
-  "itemGroup.kobolds_tab": "Кобольды",
+  "itemGroup.kobolds": "Кобольды",
   "item.kobolds.kobold_potion_health": "Кобольдское зелье исцеления",
   "item.kobolds.kobold_captain_spawn_egg": "Яйцо призыва кобольда капитана"
 }
