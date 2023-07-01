@@ -6,7 +6,7 @@
       "weight": 100,
       "element": {
         "location": "kobolds:kobold_dungeon_desert",
-        "processors": "kobolds:generic",
+        "processors": "kobolds:archaeology",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }
