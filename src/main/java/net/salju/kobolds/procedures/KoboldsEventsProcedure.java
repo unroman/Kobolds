@@ -2,10 +2,12 @@ package net.salju.kobolds.procedures;
 
 import net.salju.kobolds.worldgen.KoboldRascalSpawner;
 import net.salju.kobolds.worldgen.KoboldData;
+import net.salju.kobolds.entity.KoboldRascalEntity;
 import net.salju.kobolds.entity.AbstractKoboldEntity;
 
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.TickEvent;
 
@@ -16,6 +18,7 @@ import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.server.level.ServerLevel;
 
@@ -35,6 +38,15 @@ public class KoboldsEventsProcedure {
 			((Mob) billy).targetSelector.addGoal(3, new NearestAttackableTargetGoal((Mob) billy, AbstractKoboldEntity.class, false));
 		} else if (target instanceof Villager nose) {
 			((Villager) nose).goalSelector.addGoal(1, new AvoidEntityGoal((Villager) nose, AbstractKoboldEntity.class, (float) 6, 0.6, 0.8));
+		}
+	}
+
+	@SubscribeEvent
+	public static void onAttackTarget(LivingChangeTargetEvent event) {
+		LivingEntity target = event.getNewTarget();
+		LivingEntity billy = event.getEntity();
+		if (billy instanceof Zombie && target instanceof KoboldRascalEntity && !(billy.getLastHurtByMob() == target)) {
+			event.setCanceled(true);
 		}
 	}
 

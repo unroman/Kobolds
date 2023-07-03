@@ -391,7 +391,7 @@ public abstract class AbstractKoboldEntity extends Monster implements CrossbowAt
 					}
 				} else if (gem.is(ItemTags.create(new ResourceLocation("kobolds:kobold_breed_items")))) {
 					if (!(this instanceof KoboldWarriorEntity) && !this.isBaby() && !world.getEntitiesOfClass(KoboldWarriorEntity.class, AABB.ofSize(new Vec3(x, y, z), 32, 32, 32), e -> true).isEmpty()
-							&& this.getPersistentData().getDouble("TimerApple") == 0) {
+							&& this.getPersistentData().getDouble("TimerApple") <= 0) {
 						this.getPersistentData().putDouble("TimerApple", 24000);
 						if (!player.getAbilities().instabuild) {
 							(player.getItemInHand(hand)).shrink(1);
@@ -417,8 +417,8 @@ public abstract class AbstractKoboldEntity extends Monster implements CrossbowAt
 
 	@Override
 	protected void populateDefaultEquipmentSlots(RandomSource randy, DifficultyInstance souls) {
-		ItemStack sword = (EnchantmentHelper.enchantItem(RandomSource.create(), new ItemStack(KoboldsItems.KOBOLD_IRON_SWORD.get()), 21, (false)));
-		ItemStack crossbow = (EnchantmentHelper.enchantItem(RandomSource.create(), new ItemStack(Items.CROSSBOW), 21, (false)));
+		ItemStack sword = (EnchantmentHelper.enchantItem(RandomSource.create(), new ItemStack(KoboldsItems.KOBOLD_IRON_SWORD.get()), 21, false));
+		ItemStack crossbow = (EnchantmentHelper.enchantItem(RandomSource.create(), new ItemStack(Items.CROSSBOW), 21, false));
 		if (this instanceof KoboldWarriorEntity) {
 			this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(KoboldsItems.KOBOLD_IRON_AXE.get()));
 		} else if (this instanceof KoboldRascalEntity || this instanceof KoboldCaptainEntity) {
@@ -626,7 +626,7 @@ public abstract class AbstractKoboldEntity extends Monster implements CrossbowAt
 			if (!(kobold instanceof KoboldEnchanterEntity && kobold instanceof KoboldChildEntity && target instanceof ZombifiedPiglin)) {
 				if (kobold instanceof KoboldWarriorEntity) {
 					return (target instanceof Zombie || target instanceof Skeleton || target instanceof Spider || target instanceof Villager || target instanceof Raider);
-				} else if (kobold instanceof KoboldEngineerEntity) {
+				} else if (kobold instanceof KoboldEngineerEntity || kobold instanceof KoboldRascalEntity) {
 					return (target instanceof Villager || target instanceof Raider);
 				} else {
 					return (target instanceof Zombie || target instanceof Villager || target instanceof Silverfish);

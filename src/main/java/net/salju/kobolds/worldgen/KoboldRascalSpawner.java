@@ -38,9 +38,7 @@ public class KoboldRascalSpawner {
 	}
 
 	public int tick(ServerLevel world) {
-		if (!world.getGameRules().getBoolean(GameRules.RULE_DO_TRADER_SPAWNING)) {
-			return 0;
-		} else if (--this.tickDelay > 0) {
+		if (--this.tickDelay > 0) {
 			return 0;
 		} else {
 			this.tickDelay = 1200;
@@ -54,7 +52,7 @@ public class KoboldRascalSpawner {
 					return 0;
 				} else {
 					int i = this.spawnChance;
-					this.spawnChance = Mth.clamp(this.spawnChance + 25, 25, 75);
+					this.spawnChance = Mth.clamp(this.spawnChance + 25, 25, 100);
 					this.data.setRascalChance(this.spawnChance);
 					if (this.randy.nextInt(100) > i) {
 						return 0;
@@ -77,7 +75,7 @@ public class KoboldRascalSpawner {
 			return false;
 		} else {
 			BlockPos pos = player.blockPosition();
-			BlockPos spawn = this.findSpawnPositionNear(world, pos, 64);
+			BlockPos spawn = this.findSpawnPositionNear(world, pos, 32);
 			if (spawn != null && this.hasEnoughSpace(world, spawn) && !(spawn.getY() > 56)) {
 				KoboldRascalEntity rascal = KoboldsModEntities.KOBOLD_RASCAL.get().spawn(world, spawn, MobSpawnType.EVENT);
 				if (rascal != null) {
@@ -92,7 +90,7 @@ public class KoboldRascalSpawner {
 	@Nullable
 	private BlockPos findSpawnPositionNear(LevelReader world, BlockPos pos, int inty) {
 		BlockPos spawn = null;
-		for (int i = 0; i < 10; ++i) {
+		for (int i = 0; i < 25; ++i) {
 			int x = pos.getX() + this.randy.nextInt(inty * 2) - inty;
 			int y = pos.getY() + this.randy.nextInt(inty * 2) - inty;
 			int z = pos.getZ() + this.randy.nextInt(inty * 2) - inty;

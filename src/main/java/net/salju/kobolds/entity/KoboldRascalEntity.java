@@ -59,7 +59,7 @@ public class KoboldRascalEntity extends AbstractKoboldEntity {
 		if (!this.isFound && !(this.hasEffect(MobEffects.INVISIBILITY))) {
 			this.isFound = true;
 		}
-		if (!this.level().isClientSide && --this.despawnDelay == 0) {
+		if (!this.level().isClientSide && --this.despawnDelay <= 0 && this.isFound) {
 			this.discard();
 		}
 	}
@@ -90,7 +90,7 @@ public class KoboldRascalEntity extends AbstractKoboldEntity {
 					CompoundTag tag = stack.getOrCreateTag();
 					tag.put("Items", new ListTag());
 					ListTag list = tag.getList("Items", 10);
-					if (Math.random() >= 0.95) {
+					if (Math.random() >= 0.85) {
 						ItemStack loot = new ItemStack(KoboldsItems.KOBOLD_IRON_PICKAXE.get());
 						loot.hurt(Mth.nextInt(RandomSource.create(), 28, 396), null, null);
 						loot.enchant(Enchantments.BLOCK_EFFICIENCY, Mth.nextInt(RandomSource.create(), 1, 5));
