@@ -62,35 +62,21 @@ public class KoboldChildEntity extends AbstractKoboldEntity {
 			if (this.getPersistentData().getDouble("TimerGrow") < 24000 && (this.getDisplayName().getString()).equals(Component.translatable("entity.kobolds.kobold_child").getString())) {
 				this.getPersistentData().putDouble("TimerGrow", (this.getPersistentData().getDouble("TimerGrow") + 1));
 			} else if (this.getPersistentData().getDouble("TimerGrow") >= 24000) {
+				BlockPos pos = BlockPos.containing(x, y, z);
 				this.discard();
 				if (world instanceof ServerLevel lvl) {
 					if (world.getBiome(BlockPos.containing(x, y, z)).is(TagKey.create(Registries.BIOME, new ResourceLocation("minecraft:is_jungle")))) {
 						if (Math.random() < 0.06) {
-							Mob kobold = new KoboldCaptainEntity(KoboldsModEntities.KOBOLD_CAPTAIN.get(), lvl);
-							kobold.moveTo(x, y, z, world.getRandom().nextFloat() * 360F, 0);
-							kobold.finalizeSpawn(lvl, world.getCurrentDifficultyAt(kobold.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-							world.addFreshEntity(kobold);
+							KoboldCaptainEntity kobold = KoboldsModEntities.KOBOLD_CAPTAIN.get().spawn(lvl, pos, MobSpawnType.BREEDING);
 						} else {
-							Mob kobold = new KoboldPirateEntity(KoboldsModEntities.KOBOLD_PIRATE.get(), lvl);
-							kobold.moveTo(x, y, z, world.getRandom().nextFloat() * 360F, 0);
-							kobold.finalizeSpawn(lvl, world.getCurrentDifficultyAt(kobold.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-							world.addFreshEntity(kobold);
+							KoboldPirateEntity kobold = KoboldsModEntities.KOBOLD_PIRATE.get().spawn(lvl, pos, MobSpawnType.BREEDING);
 						}
 					} else if (Math.random() > 0.95) {
-						Mob kobold = new KoboldEngineerEntity(KoboldsModEntities.KOBOLD_ENGINEER.get(), lvl);
-						kobold.moveTo(x, y, z, world.getRandom().nextFloat() * 360F, 0);
-						kobold.finalizeSpawn(lvl, world.getCurrentDifficultyAt(kobold.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-						world.addFreshEntity(kobold);
+						KoboldEngineerEntity kobold = KoboldsModEntities.KOBOLD_ENGINEER.get().spawn(lvl, pos, MobSpawnType.BREEDING);
 					} else if (Math.random() < 0.1) {
-						Mob kobold = new KoboldEnchanterEntity(KoboldsModEntities.KOBOLD_ENCHANTER.get(), lvl);
-						kobold.moveTo(x, y, z, world.getRandom().nextFloat() * 360F, 0);
-						kobold.finalizeSpawn(lvl, world.getCurrentDifficultyAt(kobold.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-						world.addFreshEntity(kobold);
+						KoboldEnchanterEntity kobold = KoboldsModEntities.KOBOLD_ENCHANTER.get().spawn(lvl, pos, MobSpawnType.BREEDING);
 					} else {
-						Mob kobold = new KoboldEntity(KoboldsModEntities.KOBOLD.get(), lvl);
-						kobold.moveTo(x, y, z, world.getRandom().nextFloat() * 360F, 0);
-						kobold.finalizeSpawn(lvl, world.getCurrentDifficultyAt(kobold.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-						world.addFreshEntity(kobold);
+						KoboldEntity kobold = KoboldsModEntities.KOBOLD.get().spawn(lvl, pos, MobSpawnType.BREEDING);
 					}
 				}
 			}
@@ -104,7 +90,7 @@ public class KoboldChildEntity extends AbstractKoboldEntity {
 		ItemStack gem = player.getItemInHand(hand);
 		if (gem.is(ItemTags.create(new ResourceLocation("kobolds:kobold_breed_items")))) {
 			if (!player.getAbilities().instabuild) {
-				(gem).shrink(1);
+				gem.shrink(1);
 			}
 			player.swing(hand, true);
 			this.getPersistentData().putDouble("TimerGrow", (this.getPersistentData().getDouble("TimerGrow") + 1256));

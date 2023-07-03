@@ -73,7 +73,7 @@ public class KoboldsModEntities {
 
 					.sized(0.5f, 1.48f));
 	public static final RegistryObject<EntityType<KoboldRascalEntity>> KOBOLD_RASCAL = register("kobold_rascal",
-			EntityType.Builder.<KoboldRascalEntity>of(KoboldRascalEntity::new, MobCategory.AMBIENT).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(KoboldRascalEntity::new)
+			EntityType.Builder.<KoboldRascalEntity>of(KoboldRascalEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(KoboldRascalEntity::new)
 
 					.sized(0.5f, 1.48f));
 

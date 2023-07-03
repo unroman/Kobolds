@@ -202,4 +202,4 @@ public class KoboldZombieEntity extends Zombie {
 		builder = builder.add(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
 		return builder;
 	}
-}
+}
