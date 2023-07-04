@@ -30,7 +30,7 @@ public class KoboldRascalSpawner {
 		this.spawnDelay = info.getRascalDelay();
 		this.spawnChance = info.getRascalChance();
 		if (this.spawnDelay == 0 && this.spawnChance == 0) {
-			this.spawnDelay = 24000;
+			this.spawnDelay = 12000;
 			info.setRascalDelay(this.spawnDelay);
 			this.spawnChance = 25;
 			info.setRascalChance(this.spawnChance);
@@ -47,7 +47,7 @@ public class KoboldRascalSpawner {
 			if (this.spawnDelay > 0) {
 				return 0;
 			} else {
-				this.spawnDelay = 24000;
+				this.spawnDelay = 12000;
 				if (!world.getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING)) {
 					return 0;
 				} else {
@@ -71,15 +71,13 @@ public class KoboldRascalSpawner {
 		Player player = world.getRandomPlayer();
 		if (player == null) {
 			return true;
-		} else if (this.randy.nextInt(10) != 0) {
-			return false;
 		} else {
 			BlockPos pos = player.blockPosition();
 			BlockPos spawn = this.findSpawnPositionNear(world, pos, 32);
 			if (spawn != null && this.hasEnoughSpace(world, spawn) && !(spawn.getY() > 56)) {
 				KoboldRascalEntity rascal = KoboldsModEntities.KOBOLD_RASCAL.get().spawn(world, spawn, MobSpawnType.EVENT);
 				if (rascal != null) {
-					rascal.setDespawnDelay(48000);
+					rascal.setDespawnDelay(24000);
 					return true;
 				}
 			}
